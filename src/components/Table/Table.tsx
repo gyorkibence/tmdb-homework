@@ -9,8 +9,8 @@ import {
   Paper,
 } from '@material-ui/core';
 import TableRow from './TableRow';
-import { MovieRow } from 'models/Table.model';
 import { WikiKeys } from 'models/Wiki.model';
+import { MovieRow } from 'models/Table.model';
 import './table.scss';
 
 export interface TableProps {
@@ -22,10 +22,12 @@ export interface TableProps {
     data: WikiKeys;
     loading: boolean;
   };
+  onSelectSimilar: (id: string) => void;
+  columns: string[];
 };
 
 const Table: FC<TableProps> = (props) => {
-  const { rowData, onRowClick, headerTitles, wiki } = props;
+  const { rowData, onRowClick, headerTitles, wiki, onSelectSimilar, columns } = props;
   return (
     <TableContainer component={Paper} className="table-container">
       <MaterialTable>
@@ -45,10 +47,12 @@ const Table: FC<TableProps> = (props) => {
         <TableBody>
           {rowData.map((item: any) => (
             <TableRow
-              key={item.name}
+              key={item.id}
               row={item}
               onRowClick={() => { onRowClick(item.name); }}
               wiki={wiki}
+              onSelectSimilar={() => onSelectSimilar(item.id)}
+              columns={columns}
             />
           ))}
         </TableBody>

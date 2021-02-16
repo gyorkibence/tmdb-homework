@@ -5,6 +5,7 @@ import './app.scss';
 
 const App = () => (
   <div className="tmdb-page-container">
+    <div className="app-title">The Movie Database</div>
     <SearchContainer />
     <TableContainer />
   </div>

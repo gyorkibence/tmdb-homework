@@ -4,15 +4,11 @@ import {
   Collapse,
   IconButton,
   TableCell,
-  Typography,
-  Box,
-  CircularProgress,
 } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import { imdbURL, wikiURL } from 'services/consts';
 import { WikiKeys } from 'models/Wiki.model';
-import Link from 'components/Link/Link';
+import CollapseItem from './CollapseItem';
 
 export interface TableRowProps {
   row: { [key: string]: string };
@@ -21,12 +17,14 @@ export interface TableRowProps {
     loading: boolean;
   };
   onRowClick: () => void;
+  onSelectSimilar: () => void;
   details?: JSX.Element | JSX.Element[];
+  columns: string[];
 }
 
 const TableRow: FC<TableRowProps> = (props) => {
   const [collapseOpen, seCollapseOpen] = useState<boolean>(false);
-  const { row, onRowClick, wiki } = props;
+  const { row, onRowClick, wiki, onSelectSimilar, columns } = props;
   return (
     <React.Fragment>
       <Row onClick={() => { onRowClick(); seCollapseOpen(!collapseOpen) }}>
@@ -36,7 +34,7 @@ const TableRow: FC<TableRowProps> = (props) => {
           </IconButton>
         </TableCell>
         {
-          Object.keys(row).map((item: string, index) => row[item] ? (
+          Object.keys(row).map((item: string, index: number) => columns.includes(item) ? (
             <TableCell component="th" scope="row" key={index.toString()} className="clickable">
               {row[item]}
             </TableCell>
@@ -48,23 +46,7 @@ const TableRow: FC<TableRowProps> = (props) => {
           <Row>
             <TableCell colSpan={6}>
               <Collapse in={collapseOpen} timeout="auto" unmountOnExit>
-                <Box margin={1}>
-                  <Typography variant="h5" gutterBottom>
-                    {row.name}
-                  </Typography>
-                  {wiki.loading && !wiki.data[row.name] ? <CircularProgress className="movies-loading" /> : null}
-                  {wiki.data[row.name]
-                    && (
-                      <div className="more-details-container">
-                        {wiki.data[row.name].firstParagraph}
-                        <div className="more-details-links">
-                          <Link link={`${wikiURL}/?curid=${wiki.data[row.name].pageId}`} name="Wikipedia" />
-                          <Link link={`${imdbURL}/${row.imdb}`} name="IMDB"/>
-                        </div>
-                      </div>
-                    )
-                  }
-                </Box>
+                <CollapseItem wiki={wiki} row={row} onSelectSimilar={onSelectSimilar} />
               </Collapse>
             </TableCell>
           </Row>

@@ -1,6 +1,6 @@
 .table-container {
   .header-title-style {
-    background-color: black;
+    background-color: #3f51b5;
     color: white;
   }
 
@@ -13,6 +13,13 @@
   .more-details-container {
     display: flex;
     flex-direction: column;
+    
+    .more-details-inner-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
 
     .more-details-links {
       display: flex;
