@@ -10,6 +10,7 @@ class AppStore {
   wiki: { [title: string]: WikiData; } = {};
   wikiLoading: boolean = false;
   wikiErrorMessage: string = '';
+
   constructor() {
     makeAutoObservable(this);
   }
