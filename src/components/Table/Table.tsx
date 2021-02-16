@@ -10,16 +10,22 @@ import {
 } from '@material-ui/core';
 import TableRow from './TableRow';
 import { MovieRow } from 'models/Table.model';
+import { WikiKeys } from 'models/Wiki.model';
 import './table.scss';
 
 export interface TableProps {
   rowData: MovieRow[];
   headerTitles: Array<{ label: string, value: string }>;
   onRowClick: (name: string) => void;
+  details?: JSX.Element | JSX.Element[];
+  wiki: {
+    data: WikiKeys;
+    loading: boolean;
+  };
 };
 
 const Table: FC<TableProps> = (props) => {
-  const { rowData, onRowClick, headerTitles } = props;
+  const { rowData, onRowClick, headerTitles, wiki } = props;
   return (
     <TableContainer component={Paper} className="table-container">
       <MaterialTable>
@@ -42,6 +48,7 @@ const Table: FC<TableProps> = (props) => {
               key={item.name}
               row={item}
               onRowClick={() => { onRowClick(item.name); }}
+              wiki={wiki}
             />
           ))}
         </TableBody>

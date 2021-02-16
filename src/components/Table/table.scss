@@ -3,4 +3,24 @@
     background-color: black;
     color: white;
   }
+
+  .MuiTableRow-root {
+    .clickable {
+      cursor: pointer;
+    }
+  }
+
+  .more-details-container {
+    display: flex;
+    flex-direction: column;
+
+    .more-details-links {
+      display: flex;
+      flex-direction: column;
+
+      .tmdb-homework-link-container {
+        margin-top: 10px;
+      }
+    }
+  }
 }

@@ -1,15 +1,15 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { MovieResult, Movie } from 'models/Movie.model';
 import Client from 'client/axiosClient';
+import { WikiData } from 'models/Wiki.model';
 
 class AppStore {
   movies: Movie[] | null = null;
   moviesLoading: boolean = false;
 
-  wiki: { [title: string]: string; } = {};
+  wiki: { [title: string]: WikiData; } = {};
   wikiLoading: boolean = false;
   wikiErrorMessage: string = '';
-
   constructor() {
     makeAutoObservable(this);
   }
@@ -28,7 +28,7 @@ class AppStore {
         runInAction(() => {
           this.wikiLoading = true;
         });
-        const wikiData: any = await Client.getWikiData(title);
+        const wikiData: WikiData = await Client.getWikiData(title);
         runInAction(() => {
           this.wiki = {
             ...this.wiki,

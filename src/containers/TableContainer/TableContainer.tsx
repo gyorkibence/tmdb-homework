@@ -9,7 +9,7 @@ import './table-container.scss';
 
 const TableContainer = observer(() => {
   const { app } = useStore();
-  const { movies, moviesLoading, wiki, getWikiData } = app;
+  const { movies, moviesLoading, wiki, getWikiData, wikiLoading } = app;
   return (
     <div className="tmdb-homework-table-container">
       {
@@ -24,6 +24,7 @@ const TableContainer = observer(() => {
               name: item.name,
               genres: item.genres.map((item: { name: string }) => item.name).join(', '),
               score: item.score,
+              imdb: item.socialMedia.imdb,
             }))}
             headerTitles={[
               {
@@ -40,6 +41,10 @@ const TableContainer = observer(() => {
               },
             ]}
             onRowClick={(name: string) => getWikiData(name)}
+            wiki={{
+              data: wiki,
+              loading: wikiLoading,
+            }}
           />
         ) : null
       }

@@ -3,7 +3,7 @@ export interface Movie {
   name: string;
   score: number;
   genres: Array<{ name: string }>;
-  socialMedia: { imdb?: string };
+  socialMedia: { imdb: string | null };
   similar: Movie[];
 }
 
