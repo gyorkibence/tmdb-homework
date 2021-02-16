@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Button, PropTypes } from '@material-ui/core';
+import { Button as MaterialButton, PropTypes } from '@material-ui/core';
 import './button.scss';
 
 export enum ButtonTypes {
@@ -8,14 +8,14 @@ export enum ButtonTypes {
   button = 'button',
 }
 
-export interface AppButtonProps {
+export interface ButtonProps {
   title: string;
   color?: PropTypes.Color;
   type?: ButtonTypes;
   onClick?: () => void;
 }
 
-const AppButton: FC<AppButtonProps> = (props) => {
+const Button: FC<ButtonProps> = (props) => {
   const {
     title,
     onClick,
@@ -23,7 +23,7 @@ const AppButton: FC<AppButtonProps> = (props) => {
     type = ButtonTypes.button,
   } = props;
   return (
-    <Button
+    <MaterialButton
       color={color}
       variant="contained"
       type={type}
@@ -31,8 +31,8 @@ const AppButton: FC<AppButtonProps> = (props) => {
       className="tmdb-homework-button-container"
     >
       {title}
-    </Button>
+    </MaterialButton>
   );
 };
 
-export default AppButton;
+export default Button;
