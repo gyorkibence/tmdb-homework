@@ -2,7 +2,7 @@ import { makeAutoObservable } from 'mobx';
 import { MovieResult, Movie } from 'models/Movie.model';
 
 class AppStore {
-  movies: Movie[] = [];
+  movies: Movie[] | null = null;
   moviesLoading = false;
 
   constructor() {
