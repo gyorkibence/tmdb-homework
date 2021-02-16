@@ -9,7 +9,7 @@ import './table-container.scss';
 
 const TableContainer = observer(() => {
   const { app } = useStore();
-  const { movies, moviesLoading } = app;
+  const { movies, moviesLoading, wiki, getWikiData } = app;
   return (
     <div className="tmdb-homework-table-container">
       {
@@ -39,11 +39,11 @@ const TableContainer = observer(() => {
                 value: 'Score',
               },
             ]}
-            onRowClick={(elem) => console.log(elem)}
+            onRowClick={(name: string) => getWikiData(name)}
           />
         ) : null
       }
-      {movies && !movies.length && !moviesLoading
+      {movies && !movies.length && !moviesLoading
         ? <div className="error-message">Movies not found with the given title.</div>
         : null
       }

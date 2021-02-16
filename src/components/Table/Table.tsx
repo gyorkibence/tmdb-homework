@@ -27,7 +27,12 @@ const Table: FC<TableProps> = (props) => {
           <MaterialRow>
             <TableCell className="header-title-style" />
             {headerTitles.map((item) => (
-              <TableCell className="header-title-style">{item.label}</TableCell>
+              <TableCell
+                key={item.label}
+                className="header-title-style"
+              >
+                {item.label}
+              </TableCell>
             ))}
           </MaterialRow>
         </TableHead>

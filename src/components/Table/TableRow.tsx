@@ -26,8 +26,8 @@ const TableRow: FC<TableRowProps> = (props) => {
           </IconButton>
         </TableCell>
         {
-          Object.keys(row).map((item) => (
-            <TableCell component="th" scope="row">
+          Object.keys(row).map((item, index) => (
+            <TableCell component="th" scope="row" key={index.toString()}>
               {row[item]}
             </TableCell>
           ))
