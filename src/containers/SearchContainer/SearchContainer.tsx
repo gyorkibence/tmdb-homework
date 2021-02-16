@@ -1,7 +1,8 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import { useStore } from 'store';
-import { toJS } from 'mobx';
+import { useLazyQuery } from '@apollo/client';
+import { GET_MOVIES_BY_TITLE } from 'queries';
 import Button, { ButtonTypes } from 'components/Button/Button';
 import Input from 'components/Input/Input';
 import './search-container.scss';
@@ -9,13 +10,20 @@ import './search-container.scss';
 const SearchContainer = observer(() => {
   const [inputValue, setInputValue] = useState('');
   const { app } = useStore();
-  const { mockData } = app;
+  const { setMoviesData, setMoviesLoading } = app;
+  const [getData, { data, loading }] = useLazyQuery(GET_MOVIES_BY_TITLE);
 
-  console.log(toJS(mockData));
+  useEffect(() => {
+    if (data) setMoviesData(data);
+  }, [data, setMoviesData]);
+
+  useEffect(() => {
+    setMoviesLoading(loading);
+  }, [loading, setMoviesLoading]);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    console.log(`Search has started with value: ${inputValue}!`);
+    getData({ variables: { title: inputValue } });
   };
 
   return (
