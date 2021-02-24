@@ -32,29 +32,4 @@ describe('App Store tests', () => {
     });
     expect(store.wikiErrorMessage).toBe('');
   });
-
-  it('should set movies data', async () => {
-    const store = AppStore;
-    const data = {
-      searchMovies: [
-        {
-          id: 'id',
-          name: 'name',
-          score: 10,
-          genres: [{ name: 'genre' }],
-          socialMedia: { imdb: null },
-          similar: [],
-        }
-      ]
-    };
-    await store.setMoviesData(data);
-    expect(store.movies).toStrictEqual(data.searchMovies);
-  });
-
-  it('should set movies loading', async () => {
-    const store = AppStore;
-    const data = true;
-    await store.setMoviesLoading(data);
-    expect(store.moviesLoading).toStrictEqual(data);
-  });
 });
